@@ -1,0 +1,20 @@
+*.class
+*.log
+logs/
+local.*
+
+# IntelliJ
+.idea/
+.idea_modules/
+scala-automation.iml
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
