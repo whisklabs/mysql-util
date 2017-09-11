@@ -1,4 +1,4 @@
-package com.whisk.finagle.mysql.test
+package com.whisk.finagle.mysql.testing
 
 import com.whisk.docker.{ContainerSpec, DockerReadyChecker, DockerTestKitForAll, ManagedContainers}
 import org.scalatest.Suite

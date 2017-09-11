@@ -5,18 +5,12 @@ import java.util.UUID
 import com.twitter.finagle.mysql.Row
 import com.whisk.finagle.mysql._
 import com.whisk.finagle.mysql.test.Model.{Recipe, RecipeMetadata}
-import com.whisk.finagle.mysql.test.{MysqlTestBase, MysqlTestHelpers}
-import io.circe.syntax._
+import com.whisk.finagle.mysql.test.MysqlTestBase
 import io.circe._
+import io.circe.syntax._
 import org.scalatest.{FunSuite, MustMatchers}
 
-class CirceDecodersTest
-    extends FunSuite
-    with MustMatchers
-    with MysqlTestBase
-    with MysqlTestHelpers {
-
-  private lazy val client = mysqlClient.get()
+class CirceDecodersTest extends FunSuite with MustMatchers with MysqlTestBase {
 
   test("decode circe types") {
 

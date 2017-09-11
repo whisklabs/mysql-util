@@ -10,10 +10,7 @@ import org.scalatest.{FunSuite, MustMatchers}
 class DecodersIntegrationTest
     extends FunSuite
     with MustMatchers
-    with MysqlTestBase
-    with MysqlTestHelpers {
-
-  private lazy val client = mysqlClient.get()
+    with MysqlTestBase {
 
   test("decode primitives through their direct values") {
 

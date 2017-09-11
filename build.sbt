@@ -2,7 +2,7 @@ lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := "2.12.3",
-    version := "0.1.0",
+    version := "0.1.1",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -27,7 +27,7 @@ lazy val root = project
   .in(file("."))
   .settings(commonSettings)
   .settings(publish := {}, publishLocal := {}, packagedArtifacts := Map.empty)
-  .aggregate(core, circe)
+  .aggregate(core, testing, circe)
 
 lazy val core = project
   .in(file("mysql-util-core"))
@@ -36,10 +36,19 @@ lazy val core = project
     commonSettings,
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % "7.1.0",
-      "org.scalatest" %% "scalatest" % "3.0.4" % Test,
-      "com.whisk" %% "docker-testkit-core" % "0.10.0-beta0" % Test,
-      "org.jdbi" % "jdbi3" % "3.0.0-beta2" % Test,
-      "mysql" % "mysql-connector-java" % "5.1.44" % Test
+    )
+  ).dependsOn(testing % Test)
+
+lazy val testing = project
+  .in(file("mysql-util-testing"))
+  .settings(
+    name := "mysql-util-testing",
+    commonSettings,
+    libraryDependencies ++= Seq(
+      "com.twitter" %% "finagle-mysql" % "7.1.0",
+      "com.whisk" %% "docker-testkit-core" % "0.10.0-beta0",
+      "org.jdbi" % "jdbi3" % "3.0.0-beta2",
+      "mysql" % "mysql-connector-java" % "5.1.44"
     )
   )
 
