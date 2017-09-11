@@ -87,7 +87,7 @@ row.get[RawJsonString]("data")
 
 #### parameters
 
-Finagle Mysql driver out of the box doesn't allow to pass `scala.Option` as parameters. This library also does
+Finagle Mysql driver out of the box doesn't allow to pass `scala.Option` as parameters. This library does
 
 ### Testing
 
