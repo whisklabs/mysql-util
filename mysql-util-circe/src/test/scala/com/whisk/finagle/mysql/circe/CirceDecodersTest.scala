@@ -39,11 +39,12 @@ class CirceDecodersTest
     row.get[Json]("data") mustEqual json
     row.get[JsonObject]("data") mustEqual json.asObject.get
 
+    val expectedValue = RecipeMetadata(mealType = Some("Lunch"))
+
     implicit val metadataCirceDecoder: Decoder[RecipeMetadata] =
       Decoder.forProduct2("cuisine", "mealType")(RecipeMetadata.apply)
 
-    implicit val metadataTypeDecoder: ValueDecoder[RecipeMetadata] = jsonTypeDecoder[RecipeMetadata]
-    row.get[RecipeMetadata]("data") mustBe RecipeMetadata(mealType = Some("Lunch"))
+    row.json[RecipeMetadata]("data") mustBe expectedValue
   }
 
 }

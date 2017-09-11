@@ -17,22 +17,6 @@ object CirceJsonDecoder extends ValueDecoder[Json] {
   }
 }
 
-trait CirceTypeDecoders {
-
-  def jsonTypeDecoder[T](implicit ev: Decoder[T]): ValueDecoder[T] = {
-    CirceJsonDecoder.map { json =>
-      json
-        .as[T]
-        .fold(
-          failure => throw failure, //TODO better handing for failure
-          identity
-        )
-    }
-  }
-}
-
-object CirceTypeDecoders extends CirceTypeDecoders
-
 trait CirceValueDecoders {
 
   final implicit val circeJsonDecoder: ValueDecoder[Json] = CirceJsonDecoder
