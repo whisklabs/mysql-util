@@ -2,7 +2,7 @@ package com.whisk.finagle.mysql.test
 
 import java.util.UUID
 
-import com.twitter.util.{Await, Future}
+import com.twitter.util.Future
 import com.whisk.finagle.mysql._
 import com.whisk.finagle.mysql.test.Model.Recipe
 import org.scalatest.{FunSuite, MustMatchers}
