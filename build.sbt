@@ -1,4 +1,3 @@
-
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",

@@ -19,11 +19,11 @@ object ValueDecoder {
     override def unapply(v: Value): Option[T] = conv(v)
   }
 
-  def fromDirect[A <: Value : ClassTag, B](f: A => B): ValueDecoder[B] = {
+  def fromDirect[A <: Value: ClassTag, B](f: A => B): ValueDecoder[B] = {
     ValueDecoder.instance {
-      case v: A => Some(f(v))
+      case v: A       => Some(f(v))
       case EmptyValue => None
-      case NullValue => None
+      case NullValue  => None
     }
   }
 
