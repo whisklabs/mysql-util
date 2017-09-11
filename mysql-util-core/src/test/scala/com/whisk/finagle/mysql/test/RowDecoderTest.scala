@@ -1,10 +1,10 @@
-package com.finagle.whisk.mysql.test
+package com.whisk.finagle.mysql.test
 
 import java.sql.Timestamp
 import java.util.TimeZone
 
-import com.twitter.finagle.mysql.transport.MysqlBuf
 import com.twitter.finagle.mysql._
+import com.twitter.finagle.mysql.transport.MysqlBuf
 import com.twitter.io.Buf
 import com.whisk.finagle.mysql._
 import org.scalatest._

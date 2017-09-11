@@ -1,4 +1,3 @@
-import Dependencies._
 
 lazy val commonSettings = inThisBuild(
   List(
@@ -36,5 +35,23 @@ lazy val core = project
   .settings(
     name := "mysql-util-core",
     commonSettings,
-    libraryDependencies ++= Seq(finagleMysql, scalaTest % Test)
+    libraryDependencies ++= Seq(
+      "com.twitter" %% "finagle-mysql" % "7.1.0",
+      "org.scalatest" %% "scalatest" % "3.0.4" % Test,
+      "com.whisk" %% "docker-testkit-core" % "0.10.0-beta0" % Test,
+      "org.jdbi" % "jdbi3" % "3.0.0-beta2" % Test,
+      "mysql" % "mysql-connector-java" % "5.1.44" % Test
+    )
   )
+
+lazy val circe = project
+  .in(file("mysql-util-circe"))
+  .settings(
+    name := "mysql-util-circe",
+    commonSettings,
+    libraryDependencies ++= Seq(
+      "io.circe" %% "circe-core" % "0.9.0-M1",
+      "io.circe" %% "circe-parser" % "0.9.0-M1"
+    )
+  )
+  .dependsOn(core % "compile->compile;test->test")
