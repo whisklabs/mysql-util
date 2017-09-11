@@ -37,7 +37,8 @@ lazy val core = project
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % "7.1.0",
     )
-  ).dependsOn(testing % Test)
+  )
+  .dependsOn(testing % Test)
 
 lazy val testing = project
   .in(file("mysql-util-testing"))

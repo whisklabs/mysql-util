@@ -7,10 +7,7 @@ import com.whisk.finagle.mysql._
 import com.whisk.finagle.mysql.test.Model.Recipe
 import org.scalatest.{FunSuite, MustMatchers}
 
-class DecodersIntegrationTest
-    extends FunSuite
-    with MustMatchers
-    with MysqlTestBase {
+class DecodersIntegrationTest extends FunSuite with MustMatchers with MysqlTestBase {
 
   test("decode primitives through their direct values") {
 
