@@ -2,9 +2,9 @@ package com.whisk.finagle.mysql.circe
 
 import java.util.UUID
 
-import com.twitter.util.Future
+import com.twitter.finagle.mysql.Row
 import com.whisk.finagle.mysql._
-import com.whisk.finagle.mysql.test.Model.Recipe
+import com.whisk.finagle.mysql.test.Model.{Recipe, RecipeMetadata}
 import com.whisk.finagle.mysql.test.{MysqlTestBase, MysqlTestHelpers}
 import io.circe.syntax._
 import io.circe._
@@ -18,11 +18,11 @@ class CirceDecodersTest
 
   private lazy val client = mysqlClient.get()
 
-  test("decode circe Json and JsonObject types") {
+  test("decode circe types") {
 
-    val recipe = Recipe(UUID.randomUUID().toString, "Grilled Salmon")
+    val recipe = Recipe(UUID.randomUUID().toString, "Salmon pasta salad with lemon & capers")
 
-    val json = Json.obj("cuisine" := "Italian")
+    val json = Json.obj("mealType" := "Lunch")
 
     checkOk(
       client
@@ -31,13 +31,19 @@ class CirceDecodersTest
                            recipe.name,
                            json.noSpaces))
 
-    val jsonF: Future[Json] =
-      client
-        .prepareAndQuery("select data from recipes where id = ?", recipe.id)(row =>
-          row.get[Json]("data"))
-        .map(_.head)
+    val row: Row = client
+      .prepareAndQuery("select data from recipes where id = ?", recipe.id)(identity)
+      .map(_.head)
+      .futureValue
 
-    jsonF.futureValue mustBe json
+    row.get[Json]("data") mustEqual json
+    row.get[JsonObject]("data") mustEqual json.asObject.get
+
+    implicit val metadataCirceDecoder: Decoder[RecipeMetadata] =
+      Decoder.forProduct2("cuisine", "mealType")(RecipeMetadata.apply)
+
+    implicit val metadataTypeDecoder: ValueDecoder[RecipeMetadata] = jsonTypeDecoder[RecipeMetadata]
+    row.get[RecipeMetadata]("data") mustBe RecipeMetadata(mealType = Some("Lunch"))
   }
 
 }

@@ -1,23 +1,44 @@
 package com.whisk.finagle.mysql.circe
 
+import com.twitter.finagle.mysql.Value
 import com.whisk.finagle.mysql.{RawJsonString, ValueDecoder}
-import io.circe.{Json, JsonObject}
+import io.circe.{Decoder, Json, JsonObject}
 import io.circe.parser._
 
-trait CirceValueDecoders {
-
-  implicit val jsonDecoder: ValueDecoder[Json] = {
-    ValueDecoder.rawJsonString.map {
-      case RawJsonString(value) =>
-        parse(value).fold(
+object CirceJsonDecoder extends ValueDecoder[Json] {
+  override def unapply(v: Value): Option[Json] = {
+    ValueDecoder.rawJsonString.unapply(v).map {
+      case RawJsonString(jsonStr) =>
+        parse(jsonStr).fold(
           failure => throw failure, //TODO better handing for failure
           identity
         )
     }
   }
+}
 
-  implicit val jsonObjectDecoder: ValueDecoder[JsonObject] = {
-    jsonDecoder.map(
+trait CirceTypeDecoders {
+
+  def jsonTypeDecoder[T](implicit ev: Decoder[T]): ValueDecoder[T] = {
+    CirceJsonDecoder.map { json =>
+      json
+        .as[T]
+        .fold(
+          failure => throw failure, //TODO better handing for failure
+          identity
+        )
+    }
+  }
+}
+
+object CirceTypeDecoders extends CirceTypeDecoders
+
+trait CirceValueDecoders {
+
+  final implicit val circeJsonDecoder: ValueDecoder[Json] = CirceJsonDecoder
+
+  final implicit val circeJsonObjectDecoder: ValueDecoder[JsonObject] = {
+    CirceJsonDecoder.map(
       _.as[JsonObject].fold(
         failure => throw failure, //TODO better handing for failure
         identity
