@@ -48,4 +48,29 @@ class DecodersIntegrationTest
 
     jsonF.futureValue mustBe Seq(RawJsonString(data))
   }
+
+  test("transforming decoders") {
+    val id = UUID.randomUUID().toString
+    val name = "Vegetable Salad"
+    val tags = Array("Vegetarian", "Healthy")
+
+    checkOk(
+      client.prepareAndExecute("insert into recipes(id, name, tags) " +
+                                 "values (?, ?, ?)",
+                               id,
+                               name,
+                               tags.mkString(",")))
+
+    // decoding mysql string into array
+    implicit val stringArrayDecoder: ValueDecoder[Array[String]] =
+      ValueDecoder.string.map(_.split(","))
+
+    val tagsF: Future[Array[String]] =
+      client
+        .prepareAndQuery("select tags from recipes where id = ?", id)(row =>
+          row.get[Array[String]]("tags"))
+        .map(_.head)
+
+    tagsF.futureValue mustBe tags
+  }
 }

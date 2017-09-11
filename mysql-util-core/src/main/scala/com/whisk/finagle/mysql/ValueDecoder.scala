@@ -9,6 +9,10 @@ import scala.reflect.ClassTag
 trait ValueDecoder[T] {
 
   def unapply(v: Value): Option[T]
+
+  def map[X](f: T => X): ValueDecoder[X] = ValueDecoder.instance[X] { v =>
+    unapply(v).map(f)
+  }
 }
 
 object ValueDecoder {
