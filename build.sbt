@@ -4,7 +4,8 @@ lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := "2.12.3",
-    version := "0.0.1",
+    version := "0.0.2",
+    scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),

@@ -1,3 +1,3 @@
 package com.whisk.finagle
 
-package object mysql extends MysqlClientImplicits with RowImplicits {}
+package object mysql extends MysqlClientImplicits with RowImplicits with ParameterImplicits {}
