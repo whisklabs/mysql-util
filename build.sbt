@@ -28,7 +28,7 @@ lazy val root = project
   .in(file("."))
   .settings(commonSettings)
   .settings(publish := {}, publishLocal := {}, packagedArtifacts := Map.empty)
-  .aggregate(core)
+  .aggregate(core, circe)
 
 lazy val core = project
   .in(file("mysql-util-core"))

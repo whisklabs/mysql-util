@@ -49,4 +49,6 @@ object ValueDecoder {
   implicit val double: ValueDecoder[Double] = fromDirect[DoubleValue, Double](_.d)
 
   implicit val string: ValueDecoder[String] = fromDirect[StringValue, String](_.s)
+
+  implicit val rawJsonString: ValueDecoder[RawJsonString] = RawJsonJsonValue
 }
