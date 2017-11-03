@@ -1,8 +1,8 @@
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.12.3",
-    version := "0.1.3",
+    scalaVersion := "2.12.4",
+    version := "0.1.4",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -59,8 +59,8 @@ lazy val circe = project
     name := "mysql-util-circe",
     commonSettings,
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % "0.9.0-M1",
-      "io.circe" %% "circe-parser" % "0.9.0-M1"
+      "io.circe" %% "circe-core" % "0.9.0-M2",
+      "io.circe" %% "circe-parser" % "0.9.0-M2"
     )
   )
   .dependsOn(core % "compile->compile;test->test")
