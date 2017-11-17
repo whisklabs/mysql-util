@@ -61,8 +61,7 @@ class DecodersIntegrationTest extends FunSuite with MustMatchers with MysqlTestB
 
     val tagsF: Future[Array[String]] =
       client
-        .prepareAndQuery("select tags from recipes where id = ?", id)(row =>
-          row.get[Array[String]]("tags"))
+        .fetch(sql"select tags from recipes where id = $id")(row => row.get[Array[String]]("tags"))
         .map(_.head)
 
     tagsF.futureValue mustBe tags

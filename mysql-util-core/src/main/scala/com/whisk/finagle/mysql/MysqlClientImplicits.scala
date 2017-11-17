@@ -14,6 +14,14 @@ trait MysqlClientImplicits {
     def prepareAndQuery[T](sql: String, params: Parameter*)(mapper: Row => T): Future[Seq[T]] = {
       client.prepare(sql).select[T](params: _*)(mapper)
     }
+
+    def execute[T](query: InterpolatedQuery): Future[Result] = {
+      prepareAndExecute(query.preparedQuery, query.params.flatMap(_.params): _*)
+    }
+
+    def fetch[T](query: InterpolatedQuery)(f: Row => T): Future[Seq[T]] = {
+      prepareAndQuery(query.preparedQuery, query.params.flatMap(_.params): _*)(f)
+    }
   }
 
 }

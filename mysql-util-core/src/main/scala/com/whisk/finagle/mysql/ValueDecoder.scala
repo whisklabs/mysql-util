@@ -40,6 +40,8 @@ object ValueDecoder {
 
   implicit val byte: ValueDecoder[Byte] = fromDirect[ByteValue, Byte](_.b)
 
+  implicit val boolean: ValueDecoder[Boolean] = byte.map(_ == 1)
+
   implicit val short: ValueDecoder[Short] = fromDirect[ShortValue, Short](_.s)
 
   implicit val int: ValueDecoder[Int] = fromDirect[IntValue, Int](_.i)
