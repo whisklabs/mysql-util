@@ -1,6 +1,7 @@
 package com.whisk.finagle.mysql.testing
 
-import com.whisk.docker.{ContainerSpec, DockerReadyChecker, DockerTestKitForAll, ManagedContainers}
+import com.whisk.docker.testkit.{ContainerSpec, DockerReadyChecker, ManagedContainers}
+import com.whisk.docker.testkit.scalatest.DockerTestKitForAll
 import org.scalatest.Suite
 
 import scala.concurrent.duration._
@@ -18,9 +19,9 @@ trait DockerMysqlService extends DockerTestKitForAll { self: Suite =>
       DockerReadyChecker
         .Jdbc(
           driverClass = "com.mysql.jdbc.Driver",
-          urlFunc = port => s"jdbc:mysql://${dockerClient.getHost}:$port/test",
           user = MysqlUser,
-          password = MysqlPassword
+          password = Some(MysqlPassword),
+          port = Some(MysqlAdvertisedPort)
         )
         .looped(25, 1.second)
     )

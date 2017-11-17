@@ -1,8 +1,10 @@
+val finagleRev = "17.11.0"
+
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := "2.12.4",
-    version := "0.1.4",
+    version := "0.1.5",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -35,7 +37,7 @@ lazy val core = project
     name := "mysql-util-core",
     commonSettings,
     libraryDependencies ++= Seq(
-      "com.twitter" %% "finagle-mysql" % "7.1.0",
+      "com.twitter" %% "finagle-mysql" % finagleRev,
     )
   )
   .dependsOn(testing % Test)
@@ -46,8 +48,8 @@ lazy val testing = project
     name := "mysql-util-testing",
     commonSettings,
     libraryDependencies ++= Seq(
-      "com.twitter" %% "finagle-mysql" % "7.1.0",
-      "com.whisk" %% "docker-testkit-core" % "0.10.0-beta0",
+      "com.twitter" %% "finagle-mysql" % finagleRev,
+      "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta3",
       "org.jdbi" % "jdbi3" % "3.0.0-beta2",
       "mysql" % "mysql-connector-java" % "5.1.44"
     )
