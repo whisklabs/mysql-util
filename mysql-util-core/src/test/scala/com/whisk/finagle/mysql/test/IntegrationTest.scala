@@ -1,7 +1,6 @@
 package com.whisk.finagle.mysql.test
 
-import java.sql.Timestamp
-import java.time.{Instant, LocalDateTime}
+import java.time.{Instant, LocalDateTime, ZoneOffset}
 import java.util.TimeZone
 
 import com.twitter.finagle.mysql.{OK, Result, TimestampValue}
@@ -72,8 +71,8 @@ class IntegrationTest extends FunSuite with MysqlTestkit with MustMatchers {
     firstRow.getOption[String]("str_field") must equal(Some("hello"))
     firstRow.get[Int]("int_field") must equal(7787)
     firstRow.getOption[Double]("double_field") must equal(Some(-42.51))
-    firstRow.get[Timestamp]("timestamp_field") must equal(
-      Timestamp.valueOf(LocalDateTime.of(2013, 12, 24, 7, 1))
+    firstRow.get[Instant]("timestamp_field") must equal(
+      LocalDateTime.of(2013, 12, 24, 7, 1).toInstant(ZoneOffset.UTC)
     )
     firstRow.getOption[Boolean]("bool_field") must equal(Some(false))
 
