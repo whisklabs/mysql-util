@@ -170,7 +170,7 @@ class IntegrationTest extends FunSuite with MysqlTestkit with MustMatchers {
     insertSampleData()
 
     val str = "hello"
-    val bool = true
+    val bool: Option[Boolean] = Some(true)
     val resultRows = client
       .fetch(sql"SELECT * FROM test.test_table WHERE str_field=$str AND bool_field=$bool")(identity)
       .futureValue
@@ -221,6 +221,30 @@ class IntegrationTest extends FunSuite with MysqlTestkit with MustMatchers {
       .futureValue
 
     resultRows.size must equal(numRows)
+  }
+
+  test("execute interpolated INSERT INTO with batch") {
+    cleanDb()
+    val tuples = Seq(
+      tuple("hello", 1234, 10.5, true),
+      tuple("hello", 5557, -4.51, true),
+      tuple("hello", 7787, -42.51, false),
+      tuple("hello", null, null, null),
+      tuple("goodbye", 4567, 15.8, false)
+    )
+    val result: Result = client
+      .execute(
+        sql"INSERT INTO test.test_table(str_field, int_field, double_field, bool_field) VALUES $tuples")
+      .futureValue
+    result.asInstanceOf[OK].affectedRows mustEqual 5
+
+    val resultRows = client
+      .select(
+        "SELECT * FROM test.test_table WHERE str_field='hello'"
+      )(identity)
+      .futureValue
+
+    resultRows.size mustEqual 4
   }
 
 //  test("execute an update via a prepared statement using a Some(value)") {

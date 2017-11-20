@@ -5,4 +5,8 @@ package object mysql extends MysqlClientImplicits with RowImplicits with Paramet
   implicit class SqlStringContext(stringContext: StringContext) {
     def sql(args: QueryParameter*) = InterpolatedQuery.fromParts(stringContext.parts, args)
   }
+
+  def tuple(parameters: SingleParameter*) = {
+    new TupleParameter(parameters)
+  }
 }
