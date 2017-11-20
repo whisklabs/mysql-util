@@ -10,7 +10,7 @@ Finagle mysql-util
 ### core
 
 ```scala
-libraryDependencies += "com.whisk" % "mysql-util-core_2.12" % "0.1.2"
+libraryDependencies += "com.whisk" % "mysql-util-core_2.12" % "0.2.1"
 ```
 
 First you need to import:
