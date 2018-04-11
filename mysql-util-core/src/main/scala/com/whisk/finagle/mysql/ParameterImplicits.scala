@@ -5,17 +5,9 @@ import java.time.Instant
 import java.util.TimeZone
 
 import com.twitter.finagle.mysql.transport.MysqlBufWriter
-import com.twitter.finagle.mysql.{CanBeParameter, Parameter, TimestampValue, Type}
+import com.twitter.finagle.mysql.{CanBeParameter, TimestampValue, Type}
 
 trait ParameterImplicits {
-
-  implicit def optionIsParameter[T](value: Option[T])(
-      implicit _evidence: CanBeParameter[T]): Parameter = {
-    value match {
-      case Some(x) => Parameter.wrap(x)
-      case None    => Parameter.NullParameter
-    }
-  }
 
   private val defaultTsValue =
     new TimestampValue(TimeZone.getTimeZone("UTC"), TimeZone.getTimeZone("UTC"))

@@ -1,4 +1,4 @@
-val finagleRev = "17.12.0"
+val finagleRev = "18.4.0"
 
 lazy val commonSettings = inThisBuild(
   List(
@@ -50,8 +50,8 @@ lazy val testing = project
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % finagleRev,
       "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta4",
-      "org.jdbi" % "jdbi3-core" % "3.0.0",
-      "mysql" % "mysql-connector-java" % "5.1.45"
+      "org.jdbi" % "jdbi3-core" % "3.1.1",
+      "mysql" % "mysql-connector-java" % "5.1.46"
     )
   )
 
@@ -61,8 +61,8 @@ lazy val circe = project
     name := "mysql-util-circe",
     commonSettings,
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % "0.9.0",
-      "io.circe" %% "circe-parser" % "0.9.0"
+      "io.circe" %% "circe-core" % "0.9.3",
+      "io.circe" %% "circe-parser" % "0.9.3"
     )
   )
   .dependsOn(core % "compile->compile;test->test")
