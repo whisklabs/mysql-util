@@ -1,4 +1,4 @@
-val finagleRev = "18.4.0"
+val finagleRev = "18.5.0"
 
 lazy val commonSettings = inThisBuild(
   List(
@@ -50,7 +50,7 @@ lazy val testing = project
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % finagleRev,
       "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta4",
-      "org.jdbi" % "jdbi3-core" % "3.1.1",
+      "org.jdbi" % "jdbi3-core" % "3.2.0",
       "mysql" % "mysql-connector-java" % "5.1.46"
     )
   )
