@@ -1,9 +1,9 @@
-val finagleRev = "18.5.0"
+val finagleRev = "18.8.0"
 
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.12.4",
+    scalaVersion := "2.12.6",
     version := "0.3.1",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
