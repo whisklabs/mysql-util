@@ -2,7 +2,6 @@ package com.whisk.finagle.mysql
 
 import java.sql.{Date, Timestamp}
 import java.time.Instant
-import java.util.TimeZone
 
 import com.twitter.finagle.mysql._
 
@@ -58,10 +57,7 @@ object ValueDecoder {
 
   implicit val string: ValueDecoder[String] = fromDirect[StringValue, String](_.s)
 
-  private val defaultTsValue =
-    new TimestampValue(TimeZone.getTimeZone("UTC"), TimeZone.getTimeZone("UTC"))
-
-  implicit val instant: ValueDecoder[Instant] = timestamp(defaultTsValue).map(_.toInstant)
+  implicit val instant: ValueDecoder[Instant] = timestamp(TimestampValue).map(_.toInstant)
 
   implicit val rawJsonString: ValueDecoder[RawJsonString] = RawJsonJsonValue
 }

@@ -19,8 +19,7 @@ class IntegrationTest extends FunSuite with MysqlTestkit with MustMatchers {
 
   val testTable = "test.test_table"
 
-  private implicit val TsValue: TimestampValue =
-    new TimestampValue(TimeZone.getTimeZone("UTC"), TimeZone.getTimeZone("UTC"))
+  private implicit val TsValue: TimestampValue = TimestampValue
 
   def cleanDb(): Unit = {
     val dropResult = client.query("DROP TABLE IF EXISTS test.test_table").futureValue
