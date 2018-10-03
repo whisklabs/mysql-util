@@ -1,10 +1,10 @@
-val finagleRev = "18.8.0"
+val finagleRev = "18.9.1"
 
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.12.6",
-    version := "0.3.2",
+    scalaVersion := "2.12.7",
+    version := "0.3.3",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -61,8 +61,8 @@ lazy val circe = project
     name := "mysql-util-circe",
     commonSettings,
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % "0.9.3",
-      "io.circe" %% "circe-parser" % "0.9.3"
+      "io.circe" %% "circe-core" % "0.10.0",
+      "io.circe" %% "circe-parser" % "0.10.0"
     )
   )
   .dependsOn(core % "compile->compile;test->test")
