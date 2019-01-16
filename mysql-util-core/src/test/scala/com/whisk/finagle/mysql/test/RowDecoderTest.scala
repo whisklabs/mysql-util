@@ -58,7 +58,7 @@ class RowDecoderTest extends FunSuite {
 
       Buf.ByteArray.Owned.extract(bw.owned())
     }
-    val raw = RawValue(Type.Timestamp, Charset.Binary, true, timestampBinary)
+    val raw = RawValue(Type.Timestamp, MysqlCharset.Binary, true, timestampBinary)
     val row = SingleValueRow(raw)
 
     assert(row.get[Timestamp]("v") == Timestamp.valueOf("2015-01-02 03:04:05.678901"))
