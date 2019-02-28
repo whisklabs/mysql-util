@@ -1,4 +1,4 @@
-val finagleRev = "19.1.0"
+val finagleRev = "19.2.0"
 
 lazy val commonSettings = inThisBuild(
   List(
