@@ -1,9 +1,14 @@
 val finagleRev = "19.10.0"
 
+lazy val scala212 = "2.12.10"
+lazy val scala213 = "2.13.1"
+lazy val supportedScalaVersions = List(scala213, scala212)
+
+
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.12.9",
+    scalaVersion := "2.13.1",
     version := "0.5.0",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
@@ -28,7 +33,12 @@ lazy val commonSettings = inThisBuild(
 lazy val root = project
   .in(file("."))
   .settings(commonSettings)
-  .settings(publish := {}, publishLocal := {}, packagedArtifacts := Map.empty)
+  .settings(
+    publish := {},
+    publishLocal := {},
+    packagedArtifacts := Map.empty,
+    crossScalaVersions := Nil
+  )
   .aggregate(core, testing, circe)
 
 lazy val core = project
@@ -36,6 +46,7 @@ lazy val core = project
   .settings(
     name := "mysql-util-core",
     commonSettings,
+    crossScalaVersions := supportedScalaVersions,
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % finagleRev,
     )
@@ -47,9 +58,10 @@ lazy val testing = project
   .settings(
     name := "mysql-util-testing",
     commonSettings,
+    crossScalaVersions := supportedScalaVersions,
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-mysql" % finagleRev,
-      "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta4",
+      "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta8",
       "org.jdbi" % "jdbi3-core" % "3.2.0",
       "mysql" % "mysql-connector-java" % "5.1.46"
     )
@@ -60,6 +72,7 @@ lazy val circe = project
   .settings(
     name := "mysql-util-circe",
     commonSettings,
+    crossScalaVersions := supportedScalaVersions,
     libraryDependencies ++= Seq(
       "io.circe" %% "circe-core" % "0.12.2",
       "io.circe" %% "circe-parser" % "0.12.2"

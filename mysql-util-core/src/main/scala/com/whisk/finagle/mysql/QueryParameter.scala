@@ -49,7 +49,7 @@ class TuplesParameter(val tuples: Seq[TupleParameter]) extends QueryParameter {
         param.appendPlaceholders(stringBuilder)
         stringBuilder.append("),")
       }
-      stringBuilder.length -= 1
+      stringBuilder.setLength(stringBuilder.length() - 1)
     }
   }
 }
