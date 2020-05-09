@@ -1,15 +1,16 @@
-val finagleRev = "19.10.0"
+val finagleRev = "20.4.1"
+val circeRev = "0.13.0"
 
-lazy val scala212 = "2.12.10"
-lazy val scala213 = "2.13.1"
+lazy val scala212 = "2.12.11"
+lazy val scala213 = "2.13.2"
 lazy val supportedScalaVersions = List(scala213, scala212)
 
 
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.13.1",
-    version := "0.5.1",
+    scalaVersion := "2.13.2",
+    version := "0.6.0",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -63,7 +64,7 @@ lazy val testing = project
       "com.twitter" %% "finagle-mysql" % finagleRev,
       "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta8",
       "org.jdbi" % "jdbi3-core" % "3.2.0",
-      "mysql" % "mysql-connector-java" % "5.1.46"
+      "mysql" % "mysql-connector-java" % "5.1.48"
     )
   )
 
@@ -74,8 +75,8 @@ lazy val circe = project
     commonSettings,
     crossScalaVersions := supportedScalaVersions,
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % "0.12.2",
-      "io.circe" %% "circe-parser" % "0.12.2"
+      "io.circe" %% "circe-core" % circeRev,
+      "io.circe" %% "circe-parser" % circeRev
     )
   )
   .dependsOn(core % "compile->compile;test->test")
