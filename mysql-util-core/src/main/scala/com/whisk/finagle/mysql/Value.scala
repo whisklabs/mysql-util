@@ -9,8 +9,8 @@ object RawJsonJsonValue extends ValueDecoder[RawJsonString] {
   val JsonTypeCode: Short = 0xf5
 
   def unapply(v: Value): Option[RawJsonString] = v match {
-    case RawValue(JsonTypeCode, MysqlCharset.Binary, _, bytes) =>
-      Some(RawJsonString(new String(bytes, MysqlCharset(MysqlCharset.Utf8_bin))))
+    case RawValue(JsonTypeCode, charset, _, bytes) =>
+      Some(RawJsonString(new String(bytes, MysqlCharset(charset))))
     case StringValue(str) => Some(RawJsonString(str))
     case _                => None
   }
