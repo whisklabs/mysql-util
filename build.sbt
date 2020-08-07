@@ -1,15 +1,15 @@
-val finagleRev = "20.4.1"
+val finagleRev = "20.7.0"
 val circeRev = "0.13.0"
 
-lazy val scala212 = "2.12.11"
-lazy val scala213 = "2.13.2"
+lazy val scala212 = "2.12.12"
+lazy val scala213 = "2.13.3"
 lazy val supportedScalaVersions = List(scala213, scala212)
 
 
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
-    scalaVersion := "2.13.2",
+    scalaVersion := scala213,
     version := "0.6.2",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
