@@ -10,6 +10,7 @@ scala-automation.iml
 
 # sbt specific
 .cache/
+.bsp/
 .history/
 .lib/
 dist/*

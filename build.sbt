@@ -1,8 +1,8 @@
-val finagleRev = "20.9.0"
+val finagleRev = "21.2.0"
 val circeRev = "0.13.0"
 
 lazy val scala212 = "2.12.12"
-lazy val scala213 = "2.13.3"
+lazy val scala213 = "2.13.6"
 lazy val supportedScalaVersions = List(scala213, scala212)
 
 
