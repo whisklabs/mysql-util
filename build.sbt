@@ -5,12 +5,11 @@ lazy val scala212 = "2.12.12"
 lazy val scala213 = "2.13.6"
 lazy val supportedScalaVersions = List(scala213, scala212)
 
-
 lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := scala213,
-    version := "0.6.5",
+    version := "0.6.6",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
     sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -23,13 +22,16 @@ lazy val commonSettings = inThisBuild(
       )
     ),
     developers := List(
-      Developer(id = "viktortnk",
-                name = "Viktor Taranenko",
-                email = "viktortnk@gmail.com",
-                url = url("https://finelydistributed.io/"))
+      Developer(
+        id = "viktortnk",
+        name = "Viktor Taranenko",
+        email = "viktortnk@gmail.com",
+        url = url("https://finelydistributed.io/")
+      )
     ),
     publishTo := Some(Opts.resolver.sonatypeStaging)
-  ))
+  )
+)
 
 lazy val root = project
   .in(file("."))
@@ -49,7 +51,7 @@ lazy val core = project
     commonSettings,
     crossScalaVersions := supportedScalaVersions,
     libraryDependencies ++= Seq(
-      "com.twitter" %% "finagle-mysql" % finagleRev,
+      "com.twitter" %% "finagle-mysql" % finagleRev
     )
   )
   .dependsOn(testing % Test)
