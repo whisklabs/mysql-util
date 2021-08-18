@@ -1,4 +1,4 @@
-val finagleRev = "21.2.0"
+val finagleRev = "21.6.0"
 val circeRev = "0.13.0"
 
 lazy val scala212 = "2.12.12"
