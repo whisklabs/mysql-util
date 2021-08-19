@@ -1,3 +1,5 @@
+import sbt.Keys.resolvers
+
 val finagleRev = "21.6.0"
 val circeRev = "0.13.0"
 
@@ -9,9 +11,9 @@ lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := scala213,
-    version := "0.6.6",
+    version := "0.6.7",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
-    sonatypeProfileName := "com.whisk",
+//    sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     homepage := Some(url("https://github.com/whisklabs/mysql-util")),
@@ -29,7 +31,12 @@ lazy val commonSettings = inThisBuild(
         url = url("https://finelydistributed.io/")
       )
     ),
-    publishTo := Some(Opts.resolver.sonatypeStaging)
+    credentials += Credentials(Path.userHome / ".m2" / ".credentials"),
+    publishTo := Some(
+      "internal.repo.write" at "https://nexus.whisk-dev.com/repository/whisk-maven2/"
+    ),
+    resolvers += "internal.repo.read" at "https://nexus.whisk-dev.com/repository/whisk-maven-group/"
+    //    publishTo := Some(Opts.resolver.sonatypeStaging)
   )
 )
 
