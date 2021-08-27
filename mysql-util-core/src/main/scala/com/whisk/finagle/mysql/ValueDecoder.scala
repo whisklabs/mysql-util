@@ -2,6 +2,7 @@ package com.whisk.finagle.mysql
 
 import java.sql.{Date, Timestamp}
 import java.time.Instant
+import java.util.UUID
 
 import com.twitter.finagle.mysql._
 
@@ -20,17 +21,14 @@ object ValueDecoder {
 
   def apply[T: ValueDecoder]: ValueDecoder[T] = implicitly[ValueDecoder[T]]
 
-  def instance[T](conv: Value => Option[T]): ValueDecoder[T] = new ValueDecoder[T] {
-    override def unapply(v: Value): Option[T] = conv(v)
-  }
+  def instance[T](conv: Value => Option[T]): ValueDecoder[T] = conv(_)
 
-  def fromDirect[A <: Value: ClassTag, B](f: A => B): ValueDecoder[B] = {
+  def fromDirect[A <: Value: ClassTag, B](f: A => B): ValueDecoder[B] =
     ValueDecoder.instance {
       case v: A       => Some(f(v))
       case EmptyValue => None
       case NullValue  => None
     }
-  }
 
   implicit def timestamp(implicit tsValue: TimestampValue): ValueDecoder[Timestamp] =
     instance(tsValue.unapply)
@@ -60,4 +58,18 @@ object ValueDecoder {
   implicit val instant: ValueDecoder[Instant] = timestamp(TimestampValue).map(_.toInstant)
 
   implicit val rawJsonString: ValueDecoder[RawJsonString] = RawJsonJsonValue
+
+  implicit val uuid: ValueDecoder[UUID] =
+    ValueDecoder.instance(v => ValueDecoder.string.unapply(v).map(UUID.fromString))
+
+  implicit val groupConcat: ValueDecoder[ConcatenatedValues] = {
+    case StringValue(s) =>
+      val list = s.split(',').toList
+      if (s.length == 1024) // default string length for group_concat
+        Some(ConcatenatedValues(list.dropRight(1))) // drop truncated part
+      else
+        Some(ConcatenatedValues(list))
+    case EmptyValue => Some(ConcatenatedValues(Nil))
+    case _          => None
+  }
 }
