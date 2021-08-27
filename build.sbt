@@ -11,7 +11,7 @@ lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := scala213,
-    version := "0.6.7",
+    version := "0.6.8",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
 //    sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
