@@ -73,7 +73,7 @@ lazy val testing = project
       "com.twitter" %% "finagle-mysql" % finagleRev,
       "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta8",
       "org.jdbi" % "jdbi3-core" % "3.2.0",
-      "mysql" % "mysql-connector-java" % "5.1.48"
+      "mysql" % "mysql-connector-java" % "8.0.27"
     )
   )
 
