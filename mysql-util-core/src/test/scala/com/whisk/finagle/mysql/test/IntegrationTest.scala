@@ -1,7 +1,6 @@
 package com.whisk.finagle.mysql.test
 
 import java.time.{Instant, LocalDateTime, ZoneOffset}
-import java.util.TimeZone
 
 import com.twitter.finagle.mysql.{OK, Result, TimestampValue}
 import com.twitter.util.{Await, Duration, Future}
@@ -77,9 +76,9 @@ class IntegrationTest extends FunSuite with MysqlTestkit with MustMatchers {
 
     // handle nullable values
     val lastRow = resultRows(3)
-    lastRow.getOption[Int]("int_field") mustBe 'empty
-    lastRow.getOption[Double]("double_field") mustBe 'empty
-    lastRow.getOption[Boolean]("bool_field") mustBe 'empty
+    lastRow.getOption[Int]("int_field") mustBe empty
+    lastRow.getOption[Double]("double_field") mustBe empty
+    lastRow.getOption[Boolean]("bool_field") mustBe empty
   }
 
   test("insert and select rows by field") {

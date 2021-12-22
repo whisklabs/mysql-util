@@ -18,9 +18,10 @@ trait DockerMysqlService extends DockerTestKitForAll { self: Suite =>
     .withReadyChecker(
       DockerReadyChecker
         .Jdbc(
-          driverClass = "com.mysql.jdbc.Driver",
+          driverClass = "com.mysql.cj.jdbc.Driver",
           user = MysqlUser,
           password = Some(MysqlPassword),
+          database = Some(s"$MysqlDatabase?useSSL=false"),
           port = Some(MysqlAdvertisedPort)
         )
         .looped(25, 1.second)
