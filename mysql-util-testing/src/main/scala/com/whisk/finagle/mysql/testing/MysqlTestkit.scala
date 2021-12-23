@@ -54,7 +54,7 @@ trait MysqlTestkit extends DockerMysqlService { self: Suite =>
         initClient()
       }
 
-      val jdbcUrl = s"jdbc:mysql://${dockerClient.getHost}:$port/test"
+      val jdbcUrl = s"jdbc:mysql://${dockerClient.getHost}:$port/$MysqlDatabase?useSSL=false"
       val jdbi = Jdbi.create(jdbcUrl, MysqlUser, MysqlPassword)
       createSchemas.foreach { s =>
         jdbi.withHandle { h =>

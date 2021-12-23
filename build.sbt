@@ -11,7 +11,7 @@ lazy val commonSettings = inThisBuild(
   List(
     organization := "com.whisk",
     scalaVersion := scala213,
-    version := "0.6.8",
+    version := "0.7.1",
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:implicitConversions"),
 //    sonatypeProfileName := "com.whisk",
     publishMavenStyle := true,
@@ -73,7 +73,8 @@ lazy val testing = project
       "com.twitter" %% "finagle-mysql" % finagleRev,
       "com.whisk" %% "docker-testkit-scalatest" % "0.10.0-beta8",
       "org.jdbi" % "jdbi3-core" % "3.2.0",
-      "mysql" % "mysql-connector-java" % "5.1.48"
+      "mysql" % "mysql-connector-java" % "8.0.27",
+      "ch.qos.logback" % "logback-classic" % "1.2.8"
     )
   )
 
